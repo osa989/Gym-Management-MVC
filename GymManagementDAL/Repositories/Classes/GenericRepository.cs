@@ -37,6 +37,6 @@ namespace GymManagementDAL.Repositories.Classes
             
             _dbContext.Set<TEntity>().Update(entity);
             return _dbContext.SaveChanges();
-        }
+        }//
     }
 }
