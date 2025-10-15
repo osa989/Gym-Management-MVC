@@ -26,6 +26,6 @@ namespace GymManagementDAL.Repositories.Classes
         {
             _dbContext.Plans.Update(plan);
             return _dbContext.SaveChanges();
-        }
+        }//dfdhh
     }
 }
