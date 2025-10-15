@@ -1,6 +1,7 @@
 ﻿using GymManagementDAL.Data.Contexts;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,14 @@ namespace GymManagementDAL.Repositories.Classes
             return _dbContext.SaveChanges();
         }
 
-        public IEnumerable<TEntity> GetAll() => _dbContext.Set<TEntity>().ToList();
+        //public IEnumerable<TEntity> GetAll() => _dbContext.Set<TEntity>().ToList();
+        public IEnumerable<TEntity> GetAll(Func<TEntity, bool>? condition = null)
+        {
+            if (condition is null)
+                return _dbContext.Set<TEntity>().AsNoTracking().ToList();
+            else
+                return _dbContext.Set<TEntity>().AsNoTracking().Where(condition).ToList();
+        }
 
         public TEntity? GetById(int id) => _dbContext.Set<TEntity>().Find(id);
 
