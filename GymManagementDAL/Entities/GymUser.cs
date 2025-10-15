@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Entities
 {
-    internal class GymUser :BaseEntity
+    public class GymUser :BaseEntity
     {
         public string Name { get; set; } = null!;
         public string Email { get; set; } = null!;
@@ -19,7 +19,7 @@ namespace GymManagementDAL.Entities
         public Address Address { get; set; } = null!;  
     }
     [Owned] 
-    class Address
+    public class Address
     {
         public int BuildingNumber { get; set; }
         public string Street { get; set; } = null!;

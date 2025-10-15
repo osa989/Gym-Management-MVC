@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Entities
 {
-    internal class HealthRecord : BaseEntity
+    public class HealthRecord : BaseEntity
     {
         // Id = > FK === PK [Id] 
         public decimal Weight { get; set; }
