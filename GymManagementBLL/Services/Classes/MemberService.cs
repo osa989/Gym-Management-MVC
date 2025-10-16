@@ -13,10 +13,13 @@ namespace GymManagementBLL.Services.Classes
     internal class MemberService : IMemberService
     {
         private readonly IGenericRepository<Member> _memberRepository;
-
-        public MemberService(IGenericRepository<Member> memberRepository)
+        private readonly IGenericRepository<MemberShip> _membershipRepository;
+        private readonly IPlanRepository _planRepository;
+        public MemberService(IGenericRepository<Member> memberRepository,IGenericRepository<MemberShip> membershipRepository,IPlanRepository planRepository)
         {
             _memberRepository = memberRepository;
+            _membershipRepository = membershipRepository;
+            _planRepository = planRepository;
         }
 
         public IEnumerable<MemberViewModel> GetAllMember()
@@ -91,5 +94,36 @@ namespace GymManagementBLL.Services.Classes
             }
         }
 
+        public MemberViewModel? GetMemberDetails(int MemberId)
+        {
+            var member = _memberRepository.GetById(MemberId);
+            if (member == null) return null;
+
+            // Member - MemberViewModel => Manual Mapping
+            var viewModel = new MemberViewModel()
+            {
+
+                Name = member.Name,
+                Email = member.Email,
+                Phone = member.Phone,
+                Photo = member.Photo,
+                Gender = member.Gender.ToString(),
+                DateOfBirth = member.DateOfBirth.ToShortDateString(),
+                Address = $"{member.Address.BuildingNumber} - {member.Address.Street} - {member.Address.City}"
+            };
+            
+
+            var ActivememberShip = _membershipRepository
+                            .GetAll(X => X.MemberId == MemberId && X.Status == "Active").FirstOrDefault();
+
+            if (ActivememberShip is not null)
+            {
+                viewModel.MemberShipStartDate = ActivememberShip.CreatedAt.ToShortDateString();
+                viewModel.MemberShipEndDate = ActivememberShip.EndDate.ToShortDateString();
+                var plan = _planRepository.GetById(ActivememberShip.PlanId);
+                viewModel.PlanName = plan?.Name;
+            }
+            return viewModel;
+        }
     }
 }
