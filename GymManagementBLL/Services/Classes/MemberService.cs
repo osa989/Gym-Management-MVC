@@ -64,9 +64,7 @@ namespace GymManagementBLL.Services.Classes
         {
             try
             {
-                var EmailExists = _memberRepository.GetAll(X => X.Email == createMember.Email).Any();
-                var PhoneExists = _memberRepository.GetAll(X => X.Phone == createMember.Phone).Any();
-
+                if (IsEmailExists(createMember.Email) || IsPhoneExists(createMember.Phone)) return false;
                 //mapping from viewmodel to model to add 
                 var member = new Member()
                 {
@@ -142,5 +140,53 @@ namespace GymManagementBLL.Services.Classes
                 Note = MemberHealthRecordRepository.Note,
             };
         }
+
+        public MemberToUpdateViewModel? GetMemberToUpdate(int MemberId)
+        {
+            var member = _memberRepository.GetById(MemberId);
+            if(member == null) return null;
+            return new MemberToUpdateViewModel()
+            {
+                Photo = member.Photo,
+                Email = member.Email,
+                Phone = member.Phone,
+                BuildingNumber = member.Address.BuildingNumber,
+                City = member.Address.City,
+                Street = member.Address.Street,
+
+            };
+        }
+
+        public bool UpdateMemberDetails(int Id, MemberToUpdateViewModel memberToUpdate)
+        {
+            try
+            {
+                if (IsEmailExists(memberToUpdate.Email) || IsPhoneExists(memberToUpdate.Phone)) return false;
+
+                var member = _memberRepository.GetById(Id);
+                if (member == null) return false;
+                member.Email = memberToUpdate.Email;
+                member.Phone = memberToUpdate.Phone;
+                member.Address.BuildingNumber = memberToUpdate.BuildingNumber;
+                member.Address.City = memberToUpdate.City;
+                member.Address.Street = memberToUpdate.Street;
+                return _memberRepository.Update(member) > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        #region Helper Methods
+        private bool IsEmailExists(string Email)
+        {
+            return _memberRepository.GetAll(X => X.Email == Email).Any();
+        }
+        private bool IsPhoneExists(string Phone)
+        {
+            return _memberRepository.GetAll(X => X.Phone == Phone).Any();
+        }
+        #endregion
     }
 }
