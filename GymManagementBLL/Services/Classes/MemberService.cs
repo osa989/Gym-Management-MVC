@@ -15,11 +15,14 @@ namespace GymManagementBLL.Services.Classes
         private readonly IGenericRepository<Member> _memberRepository;
         private readonly IGenericRepository<MemberShip> _membershipRepository;
         private readonly IPlanRepository _planRepository;
-        public MemberService(IGenericRepository<Member> memberRepository,IGenericRepository<MemberShip> membershipRepository,IPlanRepository planRepository)
+        private readonly IGenericRepository<HealthRecord> _helathRedcordRepository;
+
+        public MemberService(IGenericRepository<Member> memberRepository,IGenericRepository<MemberShip> membershipRepository,IPlanRepository planRepository, IGenericRepository<HealthRecord> helathRedcordRepository)
         {
-            _memberRepository = memberRepository;
+            _memberRepository = memberRepository; 
             _membershipRepository = membershipRepository;
             _planRepository = planRepository;
+            _helathRedcordRepository = helathRedcordRepository;
         }
 
         public IEnumerable<MemberViewModel> GetAllMember()
@@ -124,6 +127,20 @@ namespace GymManagementBLL.Services.Classes
                 viewModel.PlanName = plan?.Name;
             }
             return viewModel;
+        }
+
+        public HealthRecordViewModel? GetMemberHealthRecordDetails(int MemberId)
+        {
+            var MemberHealthRecordRepository = _helathRedcordRepository.GetById(MemberId);
+            if (MemberHealthRecordRepository == null) return null;
+            // HealthRecord => HealthRecordViewModel mannual mapping
+            return new HealthRecordViewModel()
+            {
+                Height = MemberHealthRecordRepository.Height,
+                Weight = MemberHealthRecordRepository.Weight,
+                BloodType = MemberHealthRecordRepository.BloodType,
+                Note = MemberHealthRecordRepository.Note,
+            };
         }
     }
 }
