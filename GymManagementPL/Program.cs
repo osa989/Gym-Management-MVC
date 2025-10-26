@@ -26,8 +26,12 @@ namespace GymManagementPL
             //builder.Services.AddScoped<GenericRepository<Member>, GenericRepository<Member>>();
             //builder.Services.AddScoped<GenericRepository<Trainer>, GenericRepository<Trainer>>();
             //builder.Services.AddScoped<GenericRepository<Plan>, GenericRepository<Plan>>();
-            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddScoped<IPlanRepository,PlanRepository>();
+            //builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            //builder.Services.AddScoped<IPlanRepository,PlanRepository>();
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();  // when you need a class implent this interface create object from it 
+
+
             var app = builder.Build(); //
 
             // Configure the HTTP request pipeline.
