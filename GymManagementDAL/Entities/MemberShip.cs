@@ -12,15 +12,15 @@ namespace GymManagementDAL.Entities
         public DateTime EndDate { get; set; }
         // Read only property 
         public string Status
-        { 
+        {
             get
             {
-                if (EndDate >= DateTime.Now)
-                    return "Expired";
+                if (EndDate <= DateTime.Now)
+                    return "Active";
                 else
                     return "Expired";
-                
-            } 
+
+            }
         }
 
 
