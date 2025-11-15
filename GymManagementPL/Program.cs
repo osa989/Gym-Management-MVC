@@ -31,6 +31,7 @@ namespace GymManagementPL
             //builder.Services.AddScoped<IPlanRepository,PlanRepository>();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();  // when you need a class implent this interface create object from it 
+             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
 
 
             var app = builder.Build();
