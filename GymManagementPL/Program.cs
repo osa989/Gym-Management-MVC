@@ -41,7 +41,7 @@ namespace GymManagementPL
             using var Scoped = app.Services.CreateScope();
             var dbContext = Scoped.ServiceProvider.GetRequiredService<GymDbContext>();
             var PendingMigrations = dbContext.Database.GetPendingMigrations();
-            if (PendingMigrations?.Any() ?? false) dbContext.Database.Migrate(); // 
+            if (PendingMigrations?.Any() ?? false) dbContext.Database.Migrate(); 
             
             GymDbContextDataSeeding.SeedData(dbContext); 
             #endregion
