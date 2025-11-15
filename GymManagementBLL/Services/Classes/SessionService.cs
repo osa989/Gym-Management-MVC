@@ -139,7 +139,7 @@ namespace GymManagementBLL.Services.Classes
         {
          
             if (session == null) return false;
-            if (session.StartDate > DateTime.Now) return false; // Upcoming sessions cannot be updated
+            if (session.StartDate > DateTime.Now) return false; // Upcoming sessions cannot be updated unless there are no bookings
             if (session.StartDate <= DateTime.Now && session.EndDate >DateTime.Now) return false; // ongoing sessions cannot be updated
             var HasActiveBooking = _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id)>0;// A session is available for updating if there are no booked slots
             if (HasActiveBooking) return false;
