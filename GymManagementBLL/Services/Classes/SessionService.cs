@@ -106,7 +106,18 @@ namespace GymManagementBLL.Services.Classes
         }
         public bool RemoveSession(int sessionId)
         {
-           
+            try
+            {
+                var Session = _unitOfWork.SessionRepository.GetById(sessionId);
+                if (!IsSessionAvailableForRemoving(Session!)) return false;
+                _unitOfWork.GetRepository<Session>().Delete(Session!);
+                return _unitOfWork.SaveChanges() > 0;
+            }
+            catch 
+            {
+
+               return false;
+            }
         }
         #region Helpers  for validation
         private bool IsTrainerExists(int trainerId)
@@ -124,17 +135,30 @@ namespace GymManagementBLL.Services.Classes
             return startDate < endDate && startDate>DateTime.Now;
         }
 
-        private bool IsSessionAvailableForUpdating(Session session)
+        private bool IsSessionAvailableForRemoving(Session session)
         {
+         
             if (session == null) return false;
-            if (session.EndDate <= DateTime.Now) return false; // completed sessions cannot be updated
-            if (session.StartDate <= DateTime.Now) return false; // ongoing sessions cannot be updated
+            if (session.StartDate > DateTime.Now) return false; // Upcoming sessions cannot be updated
+            if (session.StartDate <= DateTime.Now && session.EndDate >DateTime.Now) return false; // ongoing sessions cannot be updated
             var HasActiveBooking = _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id)>0;// A session is available for updating if there are no booked slots
             if (HasActiveBooking) return false;
           return true;
         }
 
-     
+        private bool IsSessionAvailableForUpdating(Session session)
+        {
+
+          
+            if (session == null) return false;
+            if (session.EndDate <= DateTime.Now) return false; // completed sessions cannot be updated
+            if (session.StartDate <= DateTime.Now) return false; // ongoing sessions cannot be updated
+            var HasActiveBooking = _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id) > 0;// A session is available for updating if there are no booked slots
+            if (HasActiveBooking) return false;
+           return true;
+        }
+
+
 
         #endregion
     }
