@@ -1,4 +1,5 @@
 using GymManagementDAL.Data.Contexts;
+using GymManagementDAL.Data.DataSeed;
 using GymManagementDAL.Repositories.Classes;
 using GymManagementDAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,15 @@ namespace GymManagementPL
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();  // when you need a class implent this interface create object from it 
 
 
-            var app = builder.Build(); //
+            var app = builder.Build();
+            #region Seed Data - Migrate DB
+            using var Scoped = app.Services.CreateScope();
+            var dbContext = Scoped.ServiceProvider.GetRequiredService<GymDbContext>();
+            var PendingMigrations = dbContext.Database.GetPendingMigrations();
+            if (PendingMigrations?.Any() ?? false) dbContext.Database.Migrate(); // 
+            
+            GymDbContextDataSeeding.SeedData(dbContext); 
+            #endregion
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

@@ -8,7 +8,7 @@ namespace GymManagementDAL.Entities
 {
     public class Category:BaseEntity
     {
-        public string CategoryNmae { get; set; } = null!;
+        public string CategoryName { get; set; } = null!;
 
         #region Relations
         #region Category Session
