@@ -78,6 +78,36 @@ namespace GymManagementBLL.Services.Classes
             }
 
         }
+        public UpdateSessionViewModel? GetSessionToUpdate(int sessionId)
+        {
+         var Session = _unitOfWork.SessionRepository.GetById(sessionId);
+            if(!IsSessionAvailableForUpdating(Session!)) return null;
+            return _mapper.Map<UpdateSessionViewModel>(Session!);//Map with destination only
+
+
+        }
+
+        public bool UpdateSession(UpdateSessionViewModel updateSession, int sessionId)
+        {
+            try
+            {
+                var Session = _unitOfWork.SessionRepository.GetById(sessionId);
+                if (!IsSessionAvailableForUpdating(Session!)) return false;
+                if (!IsTrainerExists(updateSession.TrainerId)) return false;
+                if (!IsValidDateRange(updateSession.StartDate, updateSession.EndDate)) return false;
+                _mapper.Map(updateSession, Session);
+                Session!.UpdatedAt = DateTime.Now;
+                return _unitOfWork.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool RemoveSession(int sessionId)
+        {
+           
+        }
         #region Helpers  for validation
         private bool IsTrainerExists(int trainerId)
         {
@@ -91,8 +121,21 @@ namespace GymManagementBLL.Services.Classes
 
         private bool IsValidDateRange(DateTime startDate, DateTime endDate)
         {
-            return startDate < endDate;
+            return startDate < endDate && startDate>DateTime.Now;
         }
+
+        private bool IsSessionAvailableForUpdating(Session session)
+        {
+            if (session == null) return false;
+            if (session.EndDate <= DateTime.Now) return false; // completed sessions cannot be updated
+            if (session.StartDate <= DateTime.Now) return false; // ongoing sessions cannot be updated
+            var HasActiveBooking = _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id)>0;// A session is available for updating if there are no booked slots
+            if (HasActiveBooking) return false;
+          return true;
+        }
+
+     
+
         #endregion
     }
 }
