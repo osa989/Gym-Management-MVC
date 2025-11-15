@@ -11,6 +11,10 @@ namespace GymManagementDAL.Repositories.Interfaces
     {
         // to make specific repository methods for Session entity to load navigation properties
         IEnumerable<Session> GetAllSessionsWithTrainerAndCategories();
+
+        Session? GetSessionByIdWithTrainerAndCategories(int Id);
         int GetCountOfBookedSlots(int sessionId);
+
+
     }
 }

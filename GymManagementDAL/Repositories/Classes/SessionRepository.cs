@@ -34,5 +34,13 @@ namespace GymManagementDAL.Repositories.Classes
             // by using MemberSession table that made by many to many relationship between Member and Session
             return _dbContext.MemberSessions.Count(X => X.SessionId == sessionId);
         }
+
+        public Session? GetSessionByIdWithTrainerAndCategories(int Id)
+        {
+            return _dbContext.Sessions
+                .Include(X => X.SessionTrainer)
+                .Include(X => X.SessionCategory)
+                .FirstOrDefault(X => X.Id == Id);
+        }
     }
 }
