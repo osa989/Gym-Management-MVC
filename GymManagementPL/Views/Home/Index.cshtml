@@ -1,4 +1,6 @@
-﻿@{
+﻿@* @using  GymManagementBLL.ViewModels.PlanViewModel
+ @model PlanViewModel;  *@
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +8,25 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@* @Model.Id
+
+@DateTime.Now
+@{
+    int X = 10;
+    string Name = "John Doe"; 
+    List<int> numbers = new List<int> { 1, 2, 3, 4, 5 };
+}
+
+@if (X == 2)
+{
+    <h1>Hello @Name</h1>    
+}
+else{
+    <h1>Welcome Guest</h1>
+}
+@foreach (var num in numbers)
+{
+    <p>Number: @num</p>
+} *@
+
