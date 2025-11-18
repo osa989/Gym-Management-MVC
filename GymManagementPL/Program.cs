@@ -61,6 +61,12 @@ namespace GymManagementPL
 
             app.MapStaticAssets();
             app.MapControllerRoute(
+                name: "Trainers",
+                pattern: "coach/{action}",
+                defaults: new { controller ="Trainer",action="Index"}
+                )
+                .WithStaticAssets();
+            app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
