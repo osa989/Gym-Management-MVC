@@ -1,4 +1,6 @@
 using GymManagementBLL;
+using GymManagementBLL.Services.Classes;
+using GymManagementBLL.Services.Interfaces;
 using GymManagementDAL.Data.Contexts;
 using GymManagementDAL.Data.DataSeed;
 using GymManagementDAL.Repositories.Classes;
@@ -34,6 +36,7 @@ namespace GymManagementPL
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();  // when you need a class implent this interface create object from it 
              builder.Services.AddScoped<ISessionRepository, SessionRepository>();
             builder.Services.AddAutoMapper(X=>X.AddProfile(new MappingProfile()));
+            builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 
 
             var app = builder.Build();
@@ -68,7 +71,7 @@ namespace GymManagementPL
                 .WithStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Home}/{action=Index}/{name?}")
                 .WithStaticAssets();
 
             app.Run(); 
