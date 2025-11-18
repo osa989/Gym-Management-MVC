@@ -19,7 +19,7 @@ namespace GymManagementDAL.Repositories.Classes
             SessionRepository = sessionRepository;
         }
 
-        private readonly Dictionary<Type, object> _repositories;
+        private readonly Dictionary<Type, object> _repositories = new();
 
         public ISessionRepository SessionRepository { get; }
 
