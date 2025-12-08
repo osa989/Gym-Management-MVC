@@ -1,4 +1,5 @@
-﻿using GymManagementBLL.Services.Interfaces;
+﻿using AutoMapper;
+using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.MemberViewModel;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
@@ -14,9 +15,12 @@ namespace GymManagementBLL.Services.Classes
     {
       
         private readonly IUnitOfWork _unitOfWork;
-        public MemberService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+
+        public MemberService(IUnitOfWork unitOfWork,IMapper mapper)
         {
           _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public IEnumerable<MemberViewModel> GetAllMember()
@@ -42,16 +46,17 @@ namespace GymManagementBLL.Services.Classes
             //} 
             #endregion
             #region Way02 Projection Method  
-            var MemberViewModels = Members.Select(X => new MemberViewModel()
-            {
-                Id = X.Id,
-                Name = X.Name,
-                Email = X.Email,
-                Phone = X.Phone,
-                Photo = X.Photo,
-                Gender = X.Gender.ToString(),
-            });
+            //var MemberViewModels = Members.Select(X => new MemberViewModel()
+            //{
+            //    Id = X.Id,
+            //    Name = X.Name,
+            //    Email = X.Email,
+            //    Phone = X.Phone,
+            //    Photo = X.Photo,
+            //    Gender = X.Gender.ToString(),
+            //});
             #endregion
+            var MemberViewModels= _mapper.Map<IEnumerable<MemberViewModel>>(Members);
             return MemberViewModels;
         }
         public bool CreateMember(CreateMemberViewModel createMember)
@@ -60,28 +65,8 @@ namespace GymManagementBLL.Services.Classes
             {
                 if (IsEmailExists(createMember.Email) || IsPhoneExists(createMember.Phone)) return false;
                 //mapping from viewmodel to model to add 
-                var member = new Member()
-                {
-                    Name = createMember.Name,
-                    Email = createMember.Email,
-                    Phone = createMember.Phone,
-                    Gender = createMember.Gender,
-                    DateOfBirth = createMember.DateOfBirth,
-                    Address = new Address()
-                    {
-                        BuildingNumber = createMember.BuildingNumber,
-                        City = createMember.City,
-                        Street = createMember.Street
-                    },
-                    HealthRecord = new HealthRecord()
-                    {
-                        Height = createMember.HealthRecordViewModel.Height,
-                        Weight = createMember.HealthRecordViewModel.Weight,
-                        BloodType = createMember.HealthRecordViewModel.BloodType,
-                        Note = createMember.HealthRecordViewModel.Note,
-                    }
-                };
-                _unitOfWork.GetRepository<Member>().Add(member);
+                var MappedMember= _mapper.Map<CreateMemberViewModel,Member>(createMember);
+                _unitOfWork.GetRepository<Member>().Add(MappedMember);
                 return _unitOfWork.SaveChanges() > 0;
             }
             catch
@@ -90,23 +75,13 @@ namespace GymManagementBLL.Services.Classes
             }
         }
 
-        public MemberViewModel? GetMemberDetails(int MemberId)
+        public MemberViewModel? GetMemberDetails(int MemberId) 
         {
             var member = _unitOfWork.GetRepository<Member>().GetById(MemberId);
-            if (member == null) return null;
-
+            if (member is null) return null;
             // Member - MemberViewModel => Manual Mapping
-            var viewModel = new MemberViewModel()
-            {
-
-                Name = member.Name,
-                Email = member.Email,
-                Phone = member.Phone,
-                Photo = member.Photo,
-                Gender = member.Gender.ToString(),
-                DateOfBirth = member.DateOfBirth.ToShortDateString(),
-                Address = $"{member.Address.BuildingNumber} - {member.Address.Street} - {member.Address.City}"
-            };
+            var memberViewModel =_mapper.Map<MemberViewModel>(member);
+        
 
 
             var ActivememberShip = _unitOfWork.GetRepository<MemberShip>()
@@ -114,12 +89,12 @@ namespace GymManagementBLL.Services.Classes
 
             if (ActivememberShip is not null)
             {
-                viewModel.MemberShipStartDate = ActivememberShip.CreatedAt.ToShortDateString();
-                viewModel.MemberShipEndDate = ActivememberShip.EndDate.ToShortDateString();
+                memberViewModel.MemberShipStartDate = ActivememberShip.CreatedAt.ToShortDateString();
+                memberViewModel.MemberShipEndDate = ActivememberShip.EndDate.ToShortDateString();
                 var plan = _unitOfWork.GetRepository<Plan>().GetById(ActivememberShip.PlanId);
-                viewModel.PlanName = plan?.Name;
+                memberViewModel.PlanName = plan?.Name;
             }
-            return viewModel;
+            return memberViewModel;
         }
 
         public HealthRecordViewModel? GetMemberHealthRecordDetails(int MemberId)
@@ -127,29 +102,14 @@ namespace GymManagementBLL.Services.Classes
             var MemberHealthRecordRepository = _unitOfWork.GetRepository<HealthRecord>().GetById(MemberId);
             if (MemberHealthRecordRepository == null) return null;
             // HealthRecord => HealthRecordViewModel mannual mapping
-            return new HealthRecordViewModel()
-            {
-                Height = MemberHealthRecordRepository.Height,
-                Weight = MemberHealthRecordRepository.Weight,
-                BloodType = MemberHealthRecordRepository.BloodType,
-                Note = MemberHealthRecordRepository.Note,
-            };
+            return _mapper.Map<HealthRecordViewModel>(MemberHealthRecordRepository);
         }
 
         public MemberToUpdateViewModel? GetMemberToUpdate(int MemberId)
         {
             var member = _unitOfWork.GetRepository<Member>().GetById(MemberId);
             if (member == null) return null;
-            return new MemberToUpdateViewModel()
-            {
-                Photo = member.Photo,
-                Email = member.Email,
-                Phone = member.Phone,
-                BuildingNumber = member.Address.BuildingNumber,
-                City = member.Address.City,
-                Street = member.Address.Street,
-
-            };
+            return _mapper.Map<MemberToUpdateViewModel>(member);
         }
 
         public bool UpdateMemberDetails(int Id, MemberToUpdateViewModel memberToUpdate)
@@ -162,11 +122,7 @@ namespace GymManagementBLL.Services.Classes
 
                 var member = MemberRepo.GetById(Id);
                 if (member == null) return false;
-                member.Email = memberToUpdate.Email;
-                member.Phone = memberToUpdate.Phone;
-                member.Address.BuildingNumber = memberToUpdate.BuildingNumber;
-                member.Address.City = memberToUpdate.City;
-                member.Address.Street = memberToUpdate.Street;
+                _mapper.Map(memberToUpdate, member);
                 MemberRepo.Update(member);
                 return _unitOfWork.SaveChanges() > 0;
             }
@@ -183,7 +139,8 @@ namespace GymManagementBLL.Services.Classes
             var MemberRepo = _unitOfWork.GetRepository<Member>();
                 var member = MemberRepo.GetById(MemberId);
                 if (member == null) return false;
-                var HasActiveMemberSession = _unitOfWork.GetRepository<MemberSession>().GetAll(X => X.MemberId == MemberId && X.Session.StartDate > DateTime.Now == false).Any();
+                var HasActiveMemberSession = _unitOfWork.GetRepository<MemberSession>().
+                    GetAll(X => X.MemberId == MemberId && X.Session.CreatedAt > DateTime.Now == false).Any();
                 if (HasActiveMemberSession) return false;
 
                 //the delete behavior is cascade so if the member has a realtion with plan it will be deleted automatically 

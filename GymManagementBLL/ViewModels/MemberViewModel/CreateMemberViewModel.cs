@@ -1,4 +1,4 @@
-﻿using GymManagementDAL.Entities.Enums;
+﻿ using GymManagementDAL.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
