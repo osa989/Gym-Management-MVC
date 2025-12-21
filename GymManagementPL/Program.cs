@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Numerics;
 
 namespace GymManagementPL
-{//
+{
     public class Program
     {
         public static void Main(string[] args)
