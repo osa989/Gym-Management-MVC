@@ -15,7 +15,7 @@ namespace GymManagementDAL.Entities
         {
             get
             {
-                if (EndDate <= DateTime.Now)
+                if (EndDate >= DateTime.Now)
                     return "Active";
                 else
                     return "Expired";
