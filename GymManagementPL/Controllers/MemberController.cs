@@ -1,4 +1,5 @@
 ﻿using GymManagementBLL.Services.Interfaces;
+using GymManagementBLL.ViewModels.MemberViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagementPL.Controllers
@@ -41,9 +42,6 @@ namespace GymManagementPL.Controllers
             return View(Member);
 
         }
-        #endregion
-
-        #region show member health record
         public ActionResult HealthRecordDetails(int id)
         {
             if (id <= 0)
@@ -59,6 +57,34 @@ namespace GymManagementPL.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(HealthRecord);
+        }
+        #endregion
+
+        #region Add Member
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateMember(CreateMemberViewModel createMember)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("DataInvalid", "Check data and Missing fields");
+                return View(nameof(Create),createMember);
+            }
+            bool Result = _memberService.CreateMember(createMember);
+            if(Result)
+            {
+                TempData["SuccessMessage"] = "Member Created Successfully";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Member failed to Create, check phone and email";
+            }
+                return RedirectToAction(nameof(Index));
+            
         }
         #endregion
     }
