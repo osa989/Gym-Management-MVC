@@ -147,9 +147,14 @@ namespace GymManagementBLL.Services.Classes
             var MemberRepo = _unitOfWork.GetRepository<Member>();
                 var member = MemberRepo.GetById(MemberId);
                 if (member == null) return false;
-                var HasActiveMemberSession = _unitOfWork.GetRepository<MemberSession>().
-                    GetAll(X => X.MemberId == MemberId && X.Session.CreatedAt > DateTime.Now == false).Any();
-                if (HasActiveMemberSession) return false;
+
+
+                var SessionIds = _unitOfWork.GetRepository<MemberSession>().
+                    GetAll(X => X.MemberId == MemberId).Select(X=>X.SessionId); //(1,2,3)
+
+                var ActiveMemberSession = _unitOfWork.GetRepository<Session>()
+                    .GetAll(X => SessionIds.Contains(X.Id) && X.StartDate > DateTime.Now).Any();
+                if (ActiveMemberSession) return false;
 
                 //the delete behavior is cascade so if the member has a realtion with plan it will be deleted automatically 
                 var MemberShipRepo = _unitOfWork.GetRepository<MemberShip>();
