@@ -30,6 +30,7 @@ namespace GymManagementBLL.ViewModels.MemberViewModel
         public string City { get; set; } = null!;
 
         public string? Photo { get; set; }
+        public string Name { get; set; } = null!;
 
     }
 }
