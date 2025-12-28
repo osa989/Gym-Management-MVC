@@ -37,6 +37,8 @@ namespace GymManagementPL
              builder.Services.AddScoped<ISessionRepository, SessionRepository>();
             builder.Services.AddAutoMapper(X=>X.AddProfile(new MappingProfile()));
             builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+            builder.Services.AddScoped<IMemberService, MemberService>();
+            builder.Services.AddScoped<ITrainerService, TrainerService>();
 
 
             var app = builder.Build();
@@ -63,15 +65,15 @@ namespace GymManagementPL
             app.UseAuthorization();
 
             app.MapStaticAssets();
-            app.MapControllerRoute(
-                name: "Trainers",
-                pattern: "coach/{action}",
-                defaults: new { controller ="Trainer",action="Index"}
-                )
-                .WithStaticAssets();
+            //app.MapControllerRoute(
+            //    name: "Trainers",
+            //    pattern: "coach/{action}",
+            //    defaults: new { controller ="Trainer",action="Index"}
+            //    )
+            //    .WithStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{name?}")
+                pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run(); 
