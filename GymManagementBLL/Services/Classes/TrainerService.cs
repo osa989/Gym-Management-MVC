@@ -80,8 +80,14 @@ namespace GymManagementBLL.Services.Classes
 			var Repo = _unitOfWork.GetRepository<Trainer>();
 			var TrainerToUpdate = Repo.GetById(trainerId);
 
-			if (TrainerToUpdate is null || IsEmailExists(updatedTrainer.Email) || IsPhoneExists(updatedTrainer.Phone)) return false;
-_mapper.Map(updatedTrainer, TrainerToUpdate);
+            //if (TrainerToUpdate is null || IsEmailExists(updatedTrainer.Email) || IsPhoneExists(updatedTrainer.Phone)) return false;
+            var emailExist = Repo.GetAll(X => X.Email == updatedTrainer.Email && X.Id != trainerId).Any();
+            var phoneExist = Repo.GetAll(X => X.Phone == updatedTrainer.Phone && X.Id != trainerId).Any();
+			 
+            if (TrainerToUpdate is null || emailExist || phoneExist) return false;
+
+
+            _mapper.Map(updatedTrainer, TrainerToUpdate);
             Repo.Update(TrainerToUpdate);
 			return _unitOfWork.SaveChanges() > 0;
 		}
@@ -90,14 +96,14 @@ _mapper.Map(updatedTrainer, TrainerToUpdate);
 
 		private bool IsEmailExists(string email)
 		{
-			var existing = _unitOfWork.GetRepository<Member>().GetAll(
+			var existing = _unitOfWork.GetRepository<Trainer>().GetAll(
 				m => m.Email == email).Any();
 			return existing;
 		}
 
 		private bool IsPhoneExists(string phone)
 		{
-			var existing = _unitOfWork.GetRepository<Member>().GetAll(
+			var existing = _unitOfWork.GetRepository<Trainer>().GetAll(
 				m => m.Phone == phone).Any();
 			return existing;
 		}
