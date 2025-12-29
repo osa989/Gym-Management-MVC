@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Classes
 {
-    internal class SessionService : ISessionService
+    public class SessionService : ISessionService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -119,6 +119,20 @@ namespace GymManagementBLL.Services.Classes
                return false;
             }
         }
+        public IEnumerable<TrainerSelectViewModel> GetAllTrainersForDropDown()
+        {
+            var Trainers = _unitOfWork.GetRepository<Trainer>().GetAll();
+            //Trainer to TrainerSelectViewModel
+            return _mapper.Map<IEnumerable<Trainer>, IEnumerable<TrainerSelectViewModel>>(Trainers);
+        }
+
+        public IEnumerable<CategorySelectViewModel> GetAllCategoriesForDropDown()
+        {
+            var Trainers = _unitOfWork.GetRepository<Category>().GetAll();
+            //Trainer to TrainerSelectViewModel
+            return _mapper.Map<IEnumerable<Category>, IEnumerable<CategorySelectViewModel>>(Trainers);
+        }
+
         #region Helpers  for validation
         private bool IsTrainerExists(int trainerId)
         {
@@ -157,6 +171,8 @@ namespace GymManagementBLL.Services.Classes
             if (HasActiveBooking) return false;
            return true;
         }
+
+
 
 
 
