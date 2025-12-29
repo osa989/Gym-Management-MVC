@@ -108,6 +108,37 @@ namespace GymManagementPL.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+        public ActionResult Delete(int id)
+        {
+            if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "Invalid Plan Id ";
+                return RedirectToAction(nameof(Index));
+            }
+            var Session = _sessionService.GetSessionById(id);
+            if (Session == null)
+            {
+                TempData["ErrorMessage"] = "Plan not found or cannot be updated ";
+                return RedirectToAction(nameof(Index));
+            }
+            ViewBag.SessionId = id;
+            return View();
+        }
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var Result =_sessionService.RemoveSession(id);
+            if (Result)
+            {
+                TempData["SuccessMessage"] = "Session deleted successfully ";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Session Failed To delete ";
+
+            }
+            return RedirectToAction(nameof(Index));
+
+        }
         #region Helpers
         private void LoadTrainerDropdowns()
         {
