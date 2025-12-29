@@ -1,4 +1,5 @@
-﻿using GymManagementBLL.Services.Interfaces;
+﻿using GymManagementBLL.Services.Classes;
+using GymManagementBLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagementPL.Controllers
@@ -16,7 +17,21 @@ namespace GymManagementPL.Controllers
             var Sessions = _sessionService.GetAllSessions();
             return View(Sessions);
         }
-
+        public ActionResult Details(int id)
+        {
+            if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "Invalid Session Id ";
+                return RedirectToAction(nameof(Index));
+            }
+            var Session = _sessionService.GetSessionById(id);
+            if (Session == null)
+            {
+                TempData["ErrorMessage"] = "Session not found ";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(Session);
+        }
 
     }
 }
