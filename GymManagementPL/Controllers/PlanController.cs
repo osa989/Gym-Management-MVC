@@ -16,5 +16,21 @@ namespace GymManagementPL.Controllers
             var Plans = _planService.GetAllPlans();
             return View(Plans);
         }
+        
+        public ActionResult Details([FromRoute]int id)
+        {
+            if(id<= 0)
+            {
+                TempData["ErrorMessage"] = "Invalid Plan Id ";
+                return RedirectToAction(nameof(Index));
+            }
+            var Plan = _planService.GetPlanDetails(id);
+            if (Plan == null)
+            {
+                TempData["ErrorMessage"] = "Plan not found ";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(Plan);
+        }
     }
 }
