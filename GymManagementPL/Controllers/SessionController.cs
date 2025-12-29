@@ -1,5 +1,6 @@
 ﻿using GymManagementBLL.Services.Classes;
 using GymManagementBLL.Services.Interfaces;
+using GymManagementBLL.ViewModels.PlanViewModel;
 using GymManagementBLL.ViewModels.SessionViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -37,7 +38,8 @@ namespace GymManagementPL.Controllers
 
         public ActionResult Create()
         {
-            LoadDropdowns();
+            LoadCategoryDropdowns();
+            LoadTrainerDropdowns();
             return View();
         }
         [HttpPost]
@@ -45,7 +47,8 @@ namespace GymManagementPL.Controllers
         {
             if(!ModelState.IsValid)
             {
-                LoadDropdowns();
+                LoadCategoryDropdowns();
+                LoadTrainerDropdowns();
                 return View(viewModel);
             }
             var Result = _sessionService.CreateSession(viewModel);
@@ -57,12 +60,64 @@ namespace GymManagementPL.Controllers
             else
             {
                 TempData["ErrorMessage"] = "Session failed create";
-                LoadDropdowns();
+                LoadCategoryDropdowns();
+                LoadTrainerDropdowns();
                 return View(viewModel) ;
             }
         }
+
+        public ActionResult Edit(int id) //why not put [FromRoute] here
+        {
+            if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "Invalid Plan Id ";
+                return RedirectToAction(nameof(Index));
+            }
+            var Session = _sessionService.GetSessionToUpdate(id);
+            if (Session == null)
+            {
+                TempData["ErrorMessage"] = "Plan not found or cannot be updated ";
+                return RedirectToAction(nameof(Index));
+            }
+            LoadTrainerDropdowns();
+            return View(Session);
+        }
+        [HttpPost]
+        public ActionResult Edit(int id, UpdateSessionViewModel updateSession)
+        {
+            if (id <= 0)
+            { 
+                TempData["ErrorMessage"] = "Invalid Plan Id ";
+                return RedirectToAction(nameof(Index));
+            }
+            if (!ModelState.IsValid)
+            {
+                LoadTrainerDropdowns();
+                ModelState.AddModelError("WrongData", "Check data Validation");
+                return View(updateSession);
+            }
+            var isUpdated = _sessionService.UpdateSession(updateSession, id);
+            if (isUpdated)
+            {
+                TempData["SuccessMessage"] = "Session updated successfully ";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Session not found or cannot be updated ";
+
+            }
+            return RedirectToAction(nameof(Index));
+        }
         #region Helpers
-        private void LoadDropdowns()
+        private void LoadTrainerDropdowns()
+        {
+            var Categories = _sessionService.GetAllCategoriesForDropDown();
+            ViewBag.Categories = new SelectList(Categories, "Id", "Name");
+
+            var Trainers = _sessionService.GetAllTrainersForDropDown();
+            ViewBag.Trainers = new SelectList(Trainers, "Id", "Name");
+        }
+        private void LoadCategoryDropdowns()
         {
             var Categories = _sessionService.GetAllCategoriesForDropDown();
             ViewBag.Categories = new SelectList(Categories, "Id", "Name");
