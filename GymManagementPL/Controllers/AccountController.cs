@@ -55,5 +55,11 @@ namespace GymManagementPL.Controllers
         }
         #endregion
         //AccessDenied
+        #region Access Denied
+        public ActionResult AccessDenied()
+        {
+            return View();
+        }
+        #endregion
     }
 }
