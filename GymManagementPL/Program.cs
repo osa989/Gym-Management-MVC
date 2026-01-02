@@ -1,10 +1,14 @@
 using GymManagementBLL;
+using GymManagementBLL.Services.AttachmentService;
 using GymManagementBLL.Services.Classes;
 using GymManagementBLL.Services.Interfaces;
 using GymManagementDAL.Data.Contexts;
 using GymManagementDAL.Data.DataSeed;
+using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Classes;
 using GymManagementDAL.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
 
@@ -41,16 +45,36 @@ namespace GymManagementPL
             builder.Services.AddScoped<ITrainerService, TrainerService>();
             builder.Services.AddScoped<IPlanService,PlanService>();
             builder.Services.AddScoped<ISessionService,SessionService>();
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(Config =>
+            {
+                //Config.Password.RequiredLength = 6;
+                //Config.Password.RequireLowercase = true;
+                //Config.Password.RequireUppercase = true; by default they are true
+                Config.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<GymDbContext>(); // to tell identity to use this context for storing users and roles info
+
+            builder.Services.ConfigureApplicationCookie(Config =>
+            {
+                Config.LoginPath = "/Account/Login"; // redirect to this path if try to access any protected resource without login
+                Config.AccessDeniedPath = "/Account/AccessDenied"; // when user try to access resource not authorized to access it 
+            });
+            //builder.Services.AddIdentityCore<ApplicationUser>()
+            //    .AddEntityFrameworkStores<GymDbContext>(); //simpler than AddIdentity - used in APIs
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
 
             var app = builder.Build();
             #region Seed Data - Migrate DB
             using var Scoped = app.Services.CreateScope();
             var dbContext = Scoped.ServiceProvider.GetRequiredService<GymDbContext>();
+            var roleManager = Scoped.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = Scoped.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var PendingMigrations = dbContext.Database.GetPendingMigrations();
             if (PendingMigrations?.Any() ?? false) dbContext.Database.Migrate(); 
             
             GymDbContextDataSeeding.SeedData(dbContext); 
+            IdetityDbContextSeeding.SeedData(roleManager,userManager);
             #endregion
 
             // Configure the HTTP request pipeline.
@@ -63,7 +87,7 @@ namespace GymManagementPL
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
@@ -75,7 +99,7 @@ namespace GymManagementPL
             //    .WithStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Account}/{action=Login}/{id?}")
                 .WithStaticAssets();
 
             app.Run(); 

@@ -9,7 +9,7 @@ namespace GymManagementDAL.Entities
     public class Member : GymUser
     {
         // created at => join date
-        public string? Photo { get; set; }
+        public string Photo { get; set; } = null!;
 
          public ICollection<MemberSession> MemberSession { get; set; } = null!;
         #region Relations
