@@ -61,6 +61,7 @@ namespace GymManagementPL
             });
             //builder.Services.AddIdentityCore<ApplicationUser>()
             //    .AddEntityFrameworkStores<GymDbContext>(); //simpler than AddIdentity - used in APIs
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
 
             var app = builder.Build();
@@ -86,7 +87,7 @@ namespace GymManagementPL
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
@@ -98,7 +99,7 @@ namespace GymManagementPL
             //    .WithStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Account}/{action=Login}/{id?}")
                 .WithStaticAssets();
 
             app.Run(); 
