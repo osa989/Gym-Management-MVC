@@ -46,6 +46,7 @@ namespace GymManagementPL
             builder.Services.AddScoped<IPlanService,PlanService>();
             builder.Services.AddScoped<ISessionService,SessionService>();
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+            builder.Services.AddScoped(typeof(IMemberShipRepository), typeof(SessionRepository));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(Config =>
             {
                 //Config.Password.RequiredLength = 6;
