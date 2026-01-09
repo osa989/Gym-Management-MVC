@@ -1,4 +1,4 @@
-﻿]using GymManagementBLL.ViewModels.MemberShipViewModel;
+﻿using GymManagementBLL.ViewModels.MemberShipViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +10,6 @@ namespace GymManagementBLL.Services.Interfaces
     public interface IMemberShipServices
     {
         IEnumerable<MemberShipViewModel> GetAllMemberShipWithMemberAndPlans(Func<MemberShipViewModel, bool>? Condition = null);
+        bool CreateMemberShip(MemberShipViewModel model);
     }
 }

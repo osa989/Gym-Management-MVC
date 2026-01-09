@@ -46,7 +46,12 @@ namespace GymManagementPL
             builder.Services.AddScoped<IPlanService,PlanService>();
             builder.Services.AddScoped<ISessionService,SessionService>();
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
-            builder.Services.AddScoped(typeof(IMemberShipRepository), typeof(SessionRepository));
+
+
+            builder.Services.AddScoped(typeof(ISessionRepository), typeof(SessionRepository));
+            builder.Services.AddScoped(typeof(IMemberShipRepository), typeof(MemberShipRepository));
+            builder.Services.AddScoped<IMemberShipServices, MemberShipService>();
+
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(Config =>
             {
                 //Config.Password.RequiredLength = 6;
@@ -63,7 +68,7 @@ namespace GymManagementPL
             //builder.Services.AddIdentityCore<ApplicationUser>()
             //    .AddEntityFrameworkStores<GymDbContext>(); //simpler than AddIdentity - used in APIs
             builder.Services.AddScoped<IAccountService, AccountService>();
-
+        
 
             var app = builder.Build();
             #region Seed Data - Migrate DB
