@@ -46,6 +46,24 @@ namespace GymManagementPL.Controllers
             LoadDropdowns();
             return View(model);
         }
+        public IActionResult Cancel(int id) {
+            {
+                var result =_memberShipServices.DeleteMemberShip(id);
+                if (result)
+                {
+                    TempData["SuccessMessage"] = "Membership canceled successfully.";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Failed to cancel membership. Please try again.";
+                    return RedirectToAction("Index");
+
+
+                }
+                
+            }
+        }
         #region Helper methode
         public void LoadDropdowns()
         {

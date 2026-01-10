@@ -31,7 +31,7 @@ namespace GymManagementBLL.Services.Classes
             return memberShipViewModels;
 
         }
-        public bool CreateMemberShip(MemberShipViewModel model)
+        public bool CreateMemberShip(CreateMemberShipViewModel model)
         {
          // make sure member and plan exist
           // and member cannot have morethan one active membership
@@ -66,6 +66,19 @@ namespace GymManagementBLL.Services.Classes
             var memberSelectList = _mapper.Map<IEnumerable<MemberToSelectListViewModel>>(members);
             return memberSelectList;
         }
+
+        public bool DeleteMemberShip(int memberId)
+        {
+            var membershiprepo = _unitOfWork.MemberShipRepository;
+            var membershipToDelete = membershiprepo.GetFirstOrDefault(m=>m.MemberId==memberId && m.Status.ToLower()=="active");
+            if(membershipToDelete == null)
+            {
+                return false;
+            }
+            membershiprepo.Delete(membershipToDelete);
+            return _unitOfWork.SaveChanges() > 0;
+        }
+
 
         #endregion
     }

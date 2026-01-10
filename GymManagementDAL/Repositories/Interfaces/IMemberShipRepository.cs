@@ -10,6 +10,9 @@ namespace GymManagementDAL.Repositories.Interfaces
     public interface IMemberShipRepository : IGenericRepository<MemberShip>
     {
         IEnumerable<MemberShip> GetAllMemberShipWithMemberAndPlans(Func<MemberShip, bool>? Condition = null);
+        MemberShip? GetFirstOrDefault(Func<MemberShip, bool> Condition);
+
+
 
     }
 }

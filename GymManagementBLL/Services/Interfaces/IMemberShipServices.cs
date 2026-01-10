@@ -14,5 +14,7 @@ namespace GymManagementBLL.Services.Interfaces
         IEnumerable<PlanToSelectListViewModel> GetAllPlansToDropDown();
         IEnumerable<MemberToSelectListViewModel> GetAllMembersToDropDown();
         bool CreateMemberShip(CreateMemberShipViewModel model);
+
+        bool DeleteMemberShip(int memberId);
     }
 }
