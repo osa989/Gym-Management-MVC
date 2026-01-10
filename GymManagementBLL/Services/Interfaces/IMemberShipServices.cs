@@ -10,6 +10,9 @@ namespace GymManagementBLL.Services.Interfaces
     public interface IMemberShipServices
     {
         IEnumerable<MemberShipViewModel> GetAllMemberShipWithMemberAndPlans(Func<MemberShipViewModel, bool>? Condition = null);
-        bool CreateMemberShip(MemberShipViewModel model);
+
+        IEnumerable<PlanToSelectListViewModel> GetAllPlansToDropDown();
+        IEnumerable<MemberToSelectListViewModel> GetAllMembersToDropDown();
+        bool CreateMemberShip(CreateMemberShipViewModel model);
     }
 }
