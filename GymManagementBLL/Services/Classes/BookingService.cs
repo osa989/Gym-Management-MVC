@@ -79,5 +79,45 @@ namespace GymManagementBLL.Services.Classes
             return SessionViewModels;
 
         }
+
+        public bool MemberAttended(MemberAttendOrCancelViewModel model)
+        {
+            try
+            {
+                var memberSession = _unitOfWork.GetRepository<MemberSession>()
+                                           .GetAll(X => X.MemberId == model.MemberId && X.SessionId == model.SessionId)
+                                           .FirstOrDefault();
+                if (memberSession is null) return false;
+
+                memberSession.IsAttended = true;
+                memberSession.UpdatedAt = DateTime.Now;
+                _unitOfWork.GetRepository<MemberSession>().Update(memberSession);
+                return _unitOfWork.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool CancelBooking(MemberAttendOrCancelViewModel model)
+        {
+            try
+            {
+                var session = _unitOfWork.SessionRepository.GetById(model.SessionId);
+                if (session is null || session.StartDate <= DateTime.Now) return false;
+
+                // BUSINESS RULE #5: A booking can only be cancelled for future sessions. Once the session has started, cancellation is not allowed.
+                var Booking = _unitOfWork.BookingRepository.GetAll(X => X.MemberId == model.MemberId && X.SessionId == model.SessionId)
+                                                           .FirstOrDefault();
+                if (Booking is null) return false;
+                _unitOfWork.BookingRepository.Delete(Booking);
+                return _unitOfWork.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

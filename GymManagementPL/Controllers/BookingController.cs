@@ -1,4 +1,5 @@
-﻿using GymManagementBLL.Services.Interfaces;
+﻿using GymManagementBLL.Services.Classes;
+using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.BookingViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -44,5 +45,30 @@ namespace GymManagementPL.Controllers
             return RedirectToAction(nameof(GetMembersForOngoingSession), new {id = model.SessionId});
  
         }
+        [HttpPost]
+        public IActionResult Attended(MemberAttendOrCancelViewModel model)
+        {
+            var result = _bookingService.MemberAttended(model);
+
+            if (result)
+                TempData["SuccessMessage"] = "Member attended successfully";
+            else
+                TempData["ErrorMessage"] = "Member attendance can't be marked";
+
+            return RedirectToAction(nameof(GetMembersForOngoingSession), new { id = model.SessionId });
+        }
+
+        [HttpPost]
+        public IActionResult Cancel(MemberAttendOrCancelViewModel model)
+        {
+            var result = _bookingService.CancelBooking(model);
+
+            if (result)
+                TempData["SuccessMessage"] = "Booking cancelled successfully";
+            else
+                TempData["ErrorMessage"] = "Booking can't be cancelled";
+            return RedirectToAction(nameof(GetMembersForUpcomingSession), new { id = model.SessionId });
+        }
+
     }
 }

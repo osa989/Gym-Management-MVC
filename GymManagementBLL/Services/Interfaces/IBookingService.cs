@@ -19,5 +19,8 @@ namespace GymManagementBLL.Services.Interfaces
 
 
         IEnumerable<MemberToSelectListViewModel> GetMemberForDropDowon(int id);
+
+        bool MemberAttended(MemberAttendOrCancelViewModel model);
+        bool CancelBooking(MemberAttendOrCancelViewModel model);
     }
 }
