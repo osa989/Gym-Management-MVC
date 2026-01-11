@@ -159,6 +159,8 @@ namespace GymManagementBLL
             CreateMap<MemberSession, MemberForSessionViewModel>()
                 .ForMember(dest => dest.MemberName, opt => opt.MapFrom(src => src.Member.Name))
                 .ForMember(dest => dest.BookingDate, opt => opt.MapFrom(src => src.CreatedAt.ToShortDateString()));
+                
+            CreateMap<CreateBookingViewModel, MemberSession>();
         }
 
 
