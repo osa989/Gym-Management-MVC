@@ -47,7 +47,7 @@ namespace GymManagementPL.Controllers
             return View(model);
         }
         public IActionResult Cancel(int id) {
-            {
+            
                 var result =_memberShipServices.DeleteMemberShip(id);
                 if (result)
                 {
@@ -63,7 +63,15 @@ namespace GymManagementPL.Controllers
                 }
                 
             }
-        }
+        
+
+
+
+
+
+
+
+
         #region Helper methode
         public void LoadDropdowns()
         {

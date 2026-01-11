@@ -46,10 +46,12 @@ namespace GymManagementPL
             builder.Services.AddScoped<IPlanService,PlanService>();
             builder.Services.AddScoped<ISessionService,SessionService>();
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+            builder.Services.AddScoped<IBookingService, BookingService>();
 
 
             builder.Services.AddScoped(typeof(ISessionRepository), typeof(SessionRepository));
             builder.Services.AddScoped(typeof(IMemberShipRepository), typeof(MemberShipRepository));
+            builder.Services.AddScoped(typeof(IBookingRepository), typeof(BookingRepository));
             builder.Services.AddScoped<IMemberShipServices, MemberShipService>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(Config =>
