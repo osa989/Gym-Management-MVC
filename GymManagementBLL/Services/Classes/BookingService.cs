@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GymManagementBLL.Services.Interfaces;
+using GymManagementBLL.ViewModels.BookingViewModel;
 using GymManagementBLL.ViewModels.SessionViewModel;
 using GymManagementDAL.Repositories.Interfaces;
 using System;
@@ -20,6 +21,15 @@ namespace GymManagementBLL.Services.Classes
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        public IEnumerable<MemberForSessionViewModel> GetAllMemberSession(int sessionId)
+        {
+            var bookingRepo = _unitOfWork.BookingRepository;
+            var MemberforSession = bookingRepo.GetSessionById(sessionId);
+            var memberForSessionViewModels = _mapper.Map<IEnumerable<MemberForSessionViewModel>>(MemberforSession);
+            return memberForSessionViewModels;
+        }
+
         public IEnumerable<SessionViewModel> GetAllSessionsWithTrainersAndCategory()
         {
             var sessionRepo = _unitOfWork.SessionRepository;
