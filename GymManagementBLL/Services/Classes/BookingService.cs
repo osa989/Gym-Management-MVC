@@ -35,7 +35,7 @@ namespace GymManagementBLL.Services.Classes
             var activeMembership = membershipRepo.GetFirstOrDefault(m=>m.MemberId==model.MemberId && m.Status.ToLower()== "active");
             if (activeMembership is null)
             {
-                return false;
+                return false; // member does not have an active membership
             }
             var sessionRepo = _unitOfWork.SessionRepository;
             var bookedSlots = sessionRepo.GetCountOfBookedSlots(model.SessionId);

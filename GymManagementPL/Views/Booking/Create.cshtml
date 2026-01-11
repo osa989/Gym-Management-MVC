@@ -1,5 +1,9 @@
 ﻿@using GymManagementBLL.ViewModels.BookingViewModel
 @model CreateBookingViewModel
+@{
+        ViewData["Title"] = "Create New Booking";
+
+}
 <h1>Create New Booking</h1>
 
 <hr />
@@ -12,7 +16,7 @@
                     <h5 class="card-title mb-0">Booking Information</h5>
                 </div>
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" asp-action="Create" >
                         <div class="mb-3">
                             <input type="hidden" asp-for="SessionId" value="@ViewContext.RouteData.Values["id"]" readonly />
                             <label asp-for="MemberId" class="form-label">Member</label>
@@ -24,7 +28,7 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Create Booking
                             </button>
-                            <a asp-action="GetMembersForUpcomingSession" asp-route-id="@ViewContext.RouteData.Values["id"]" class="btn btn-secondary">
+                            <a asp-action="GetMembersForUpcomingSession" asp-route-SessionId="@ViewContext.RouteData.Values["id"]" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i> Back to List
                             </a>
                         </div>

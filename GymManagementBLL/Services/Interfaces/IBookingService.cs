@@ -15,7 +15,8 @@ namespace GymManagementBLL.Services.Interfaces
 
         IEnumerable<MemberForSessionViewModel> GetAllMemberSession(int sessionId);
 
-        public bool CreateBooking(CreateBookingViewModel model);
+        public bool CreateBooking(CreateBookingViewModel model); 
+
 
         IEnumerable<MemberToSelectListViewModel> GetMemberForDropDowon(int id);
     }

@@ -41,7 +41,7 @@ namespace GymManagementPL.Controllers
             {
                 TempData["ErrorMessage"] = "Failed to create booking. Please check the details and try again.";
             }
-            return RedirectToAction(nameof(GetMembersForUpcomingSession), new {id = model.SessionId});
+            return RedirectToAction(nameof(GetMembersForOngoingSession), new {id = model.SessionId});
  
         }
     }
