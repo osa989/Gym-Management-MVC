@@ -1,3 +1,4 @@
+ Dev
 # Gym Management System
 
 A Razor Pages / ASP.NET Core MVC gym management application.  
@@ -24,3 +25,6 @@ This solution provides member management, health records, and basic CRUD operati
 ## Quick start
 
 1. Clone the repo
+=======
+
+ main
