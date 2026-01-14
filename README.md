@@ -57,7 +57,7 @@ A modern, comprehensive platform for managing gym operations, members, trainers,
 ## 📂 Project Structure
 
 ```
-Gym-Management-System-Production/
+GymManagementSystem/
 ├── GymManagementDAL/          # Data Access Layer
 │   ├── Data/
 │   │   ├── Context/           # DbContext configuration
@@ -113,7 +113,7 @@ Gym-Management-System-Production/
    ```json
    {
      "ConnectionStrings": {
-       "DefaultConnection": "Server=YOUR_SERVER;Database=GymManagementDB;Trusted_Connection=True;TrustServerCertificate=True;"
+       "DefaultConnection": "Server=YOUR_SERVER;Database=GymManagement;Trusted_Connection=True;TrustServerCertificate=True;"
      }
    }
    ```
@@ -146,7 +146,7 @@ Gym-Management-System-Production/
 
 6. **Access the application**
 
-   - Visit [https://localhost:5001](https://localhost:5001) or [http://localhost:5000](http://localhost:5000)
+   - Visit `https://localhost:7241` or `http://localhost:5180`
    - The default route redirects to `/Account/Login`
 
 ### 🔑 Demo Accounts
@@ -154,11 +154,11 @@ Gym-Management-System-Production/
 For testing purposes, you can use the following pre-configured accounts:
 
 #### Super Admin
-- **Email**: `hassanmohamedali0113@gmail.com`
-- **Password**: `P@ssw0rd`
+- **Email**: `osamagamal@gmail.com`
+- **Password**: `P@ssw0rd123`
 
 #### Admin
-- **Email**: `ahmedrahmo@gmail.com`
+- **Email**: `youssefgamal@gmail.com`
 - **Password**: `P@ssw0rd`
 
 ---
@@ -184,69 +184,65 @@ The system includes the following main entities:
 
 Secure login and registration forms for gym staff and members.
 
- <img src="GymManagementPL/wwwroot\images\Screenshots\Login\1.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot01.png" alt="Gym Management Logo" width="600"/>
+
 
 ### 🏠 Home 
 
 Analytics and overview of gym operations.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Dashboard\1.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Dashboard\2.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Dashboard\3.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot02.png" alt="Gym Management Logo" width="600"/>
+
 
 
 ### 👤 Member Management
 
-Manage member profiles, health records, and memberships.
+Manage member profiles, health records.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Member\1.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Member\2.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Member\3.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Member\4.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Member\5.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Member\6.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot03.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot04.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot05.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot06.png" alt="Gym Management Logo" width="600"/>
 
 
 ### 🏋️ Trainer Management
 
 View and manage trainer profiles and specialties.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Trainer\1.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Trainer\2.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Trainer\3.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot07.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot08.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot09.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot10.png" alt="Gym Management Logo" width="600"/>
+
+
 
 
 ### 📅 Session Management
 
 Create and manage training sessions with categories and capacity.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Session\1.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Session\2.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Session\3.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Session\4.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Session\5.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Session\6.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Session\7.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot11.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot19.png" alt="Gym Management Logo" width="600"/>
 
 
 
+### 📅 Plan Management
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot12.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot13.png" alt="Gym Management Logo" width="600"/>
+
+### 📅 Membership Management
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot14.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot15.png" alt="Gym Management Logo" width="600"/>
 
 ### 📝 Booking Management
 
 Members can book sessions and view their booking history.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Booking\1.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Booking\2.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshots16.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshots17.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshots18.png" alt="Gym Management Logo" width="600"/>
 
-### 💳 Membership Plans
 
-Configure and manage membership plans with pricing and duration.
-
-<img src="GymManagementPL/wwwroot\images\Screenshots\Membership\1.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Membership\2.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Membership\3.png" alt="Gym Management Logo" width="600"/>
-
----
 
 ## 📌 Key Features Details
 
@@ -292,7 +288,6 @@ Configure and manage membership plans with pricing and duration.
 The application uses `appsettings.json` for configuration. Key settings include:
 
 - **ConnectionStrings**: Database connection string
-- **Logging**: Logging configuration
 - **Identity**: Authentication and authorization settings
 
 ### Database Seeding
@@ -315,20 +310,11 @@ The application includes automatic data seeding:
 
 ---
 
-## 🧪 Testing
-
-To run tests (if available):
-
-```bash
-dotnet test
-```
-
----
 
 ## 📫 Contact
 
-- **GitHub**: [Hassanoli](https://github.com/Hassanoli)
-- **Email**: hassanmohamedali0113@gmail.com
+- **GitHub**: [Hassanoli]https://github.com/osa989
+- **Email**: osama.gamalhamed@gmail.com
 
 ---
 
@@ -344,3 +330,4 @@ We welcome contributions, suggestions, and bug reports! Feel free to fork the re
 
 This project is open source and available under the [MIT License](LICENSE).
 
+   
