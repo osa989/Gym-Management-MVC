@@ -184,7 +184,7 @@ The system includes the following main entities:
 
 Secure login and registration forms for gym staff and members.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot01.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot01.png" alt="Gym Management Logo" width="600"/>
 
 
 ### 🏠 Home 
