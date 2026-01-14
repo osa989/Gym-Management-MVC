@@ -191,7 +191,7 @@ Secure login and registration forms for gym staff and members.
 
 Analytics and overview of gym operations.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot02.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot02.png" alt="Gym Management Logo" width="600"/>
 
 
 
@@ -199,20 +199,20 @@ Analytics and overview of gym operations.
 
 Manage member profiles, health records.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot03.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot04.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot05.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot06.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot03.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot04.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot05.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot06.png" alt="Gym Management Logo" width="600"/>
 
 
 ### 🏋️ Trainer Management
 
 View and manage trainer profiles and specialties.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot07.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot08.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot09.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot10.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot07.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot08.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot09.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot10.png" alt="Gym Management Logo" width="600"/>
 
 
 
@@ -221,26 +221,26 @@ View and manage trainer profiles and specialties.
 
 Create and manage training sessions with categories and capacity.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot11.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot19.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot11.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot19.png" alt="Gym Management Logo" width="600"/>
 
 
 
 ### 📅 Plan Management
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot12.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot13.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot12.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot13.png" alt="Gym Management Logo" width="600"/>
 
 ### 📅 Membership Management
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot14.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshot15.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot14.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshot15.png" alt="Gym Management Logo" width="600"/>
 
 ### 📝 Booking Management
 
 Members can book sessions and view their booking history.
 
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshots16.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshots17.png" alt="Gym Management Logo" width="600"/>
-<img src="GymManagementPL/wwwroot\images\Screenshots\Screenshots18.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshots16.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshots17.png" alt="Gym Management Logo" width="600"/>
+<img src="GymManagementPL\wwwroot\images\Screenshots\Screenshots18.png" alt="Gym Management Logo" width="600"/>
 
 
 
