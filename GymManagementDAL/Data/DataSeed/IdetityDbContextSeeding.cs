@@ -52,7 +52,7 @@ namespace GymManagementDAL.Data.DataSeed
                         LastName = "Ahmed",
                         UserName = "youssef.admin",
                         Email = "youssefgamal@gmail.com",
-                        PhoneNumber = "01030872259"
+                        PhoneNumber = "P@ssw0rd"
                     };
                     userManager.CreateAsync(Admin, "P@ssw0rd123").Wait();
                     userManager.AddToRoleAsync(Admin, "Admin").Wait();
