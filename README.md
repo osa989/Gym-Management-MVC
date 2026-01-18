@@ -1,7 +1,7 @@
 <p align="center">
 
 </p>
-
+                                    
 # 💪 Gym Management System
 
 A modern, comprehensive platform for managing gym operations, members, trainers, sessions, and memberships. Built with ASP.NET Core MVC (.NET 9.0), Entity Framework Core, and SQL Server, this system streamlines gym administration, member management, booking operations, and analytics for fitness centers and gym facilities.
