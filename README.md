@@ -313,7 +313,7 @@ The application includes automatic data seeding:
 
 ## 📫 Contact
 
-- **GitHub**: [Hassanoli]https://github.com/osa989
+- **GitHub**: [osa989]https://github.com/osa989
 - **Email**: osama.gamalhamed@gmail.com
 
 ---
